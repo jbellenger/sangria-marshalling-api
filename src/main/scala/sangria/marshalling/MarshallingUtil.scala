@@ -9,12 +9,13 @@ object MarshallingUtil {
       case nil if !iu.isDefined(nil) => rm.nullNode
       case map if iu.isMapNode(map) =>
         val keys = iu.getMapKeys(map)
-        val builder = keys.foldLeft(rm.emptyMapNode(keys.toSeq)) { case (acc, key) =>
-          iu.getMapValue(map, key) match {
-            case Some(v) =>
-              rm.addMapNodeElem(acc, key, convert(v).asInstanceOf[rm.Node], optional = false)
-            case None => acc
-          }
+        val builder = keys.foldLeft(rm.emptyMapNode(keys.toSeq)) {
+          case (acc, key) =>
+            iu.getMapValue(map, key) match {
+              case Some(v) =>
+                rm.addMapNodeElem(acc, key, convert(v).asInstanceOf[rm.Node], optional = false)
+              case None => acc
+            }
         }
 
         rm.mapNode(builder)
@@ -40,11 +41,12 @@ object MarshallingUtil {
 
   implicit class ResultMarshallerOps(val m: ResultMarshaller) extends AnyVal {
     def list(elements: ResultMarshaller#Node*): m.Node =
-      m.arrayNode(elements.asInstanceOf[Seq[m.Node]].toVector)
+      m.arrayNode(elements.asInstanceOf[Seq[m.Node]])
 
     def map(elements: (String, ResultMarshaller#Node)*): m.Node =
-      m.mapNode(elements.foldLeft(m.emptyMapNode(elements.map(_._1))) { case (acc, (name, value)) =>
-        m.addMapNodeElem(acc, name, value.asInstanceOf[m.Node], optional = false)
+      m.mapNode(elements.foldLeft(m.emptyMapNode(elements.map(_._1))) {
+        case (acc, (name, value)) =>
+          m.addMapNodeElem(acc, name, value.asInstanceOf[m.Node], optional = false)
       })
 
     def fromString(value: String): m.Node =

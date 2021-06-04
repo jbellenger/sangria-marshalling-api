@@ -25,7 +25,7 @@ trait InputUnmarshaller[Node] {
   /** @return Scalar values are Scala String, Int, Double, Boolean and Enum values defined in the schema
     *          as well as ast nodes if appropriate.
     *
-    * TODO: find better approach. Ideally the should be only one `getScalarValue` method witch returns normal scala values
+    * TODO: find better approach. Ideally the should be only one `getScalarValue` method which returns normal scala values
     */
   def getScalarValue(node: Node): Any
 

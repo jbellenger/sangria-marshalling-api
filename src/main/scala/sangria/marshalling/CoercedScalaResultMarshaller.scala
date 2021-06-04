@@ -8,7 +8,7 @@ class CoercedScalaResultMarshaller extends RawResultMarshaller {
 
   override def rawScalarNode(rawValue: Any) = rawValue
 
-  def arrayNode(values: Vector[Node]) = values
+  def arrayNode(values: Seq[Node]) = values
   def optionalArrayNodeValue(value: Option[Node]) = value
 
   def addMapNodeElem(builder: MapBuilder, key: String, value: Node, optional: Boolean) = {

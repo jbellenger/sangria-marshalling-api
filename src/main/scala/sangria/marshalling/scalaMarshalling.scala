@@ -24,7 +24,7 @@ class ScalaResultMarshaller extends ResultMarshaller {
   def scalarNode(value: Any, typeName: String, info: Set[ScalarValueInfo]) = value
   def enumNode(value: String, typeName: String) = value
 
-  def arrayNode(values: Vector[Node]) = values
+  def arrayNode(values: Seq[Node]) = values
   def optionalArrayNodeValue(value: Option[Node]) = value match {
     case Some(v) => v
     case None => nullNode
