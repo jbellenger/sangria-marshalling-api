@@ -55,6 +55,10 @@ ThisBuild / githubWorkflowPublish := Seq(
   )
 )
 
+// twitter stuff
+credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
+publishTo := Some("Artifactory Realm" at "https://artifactory.twitter.biz/libs-snapshots-local;build.timestamp=" + new java.util.Date().getTime)
+
 startYear := Some(2016)
 organizationHomepage := Some(url("https://github.com/sangria-graphql"))
 developers := Developer(
